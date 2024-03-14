@@ -2,6 +2,10 @@
 
 This project is a simple WebRTC video chat application that allows users to create and join video chat rooms. It uses the Agora Real-Time Messaging (RTM) SDK for signaling to coordinate the communication between peers and STUN/TURN servers for NAT traversal.
 
+## Important Notice
+
+**Please note:** This application is designed to work with devices on the same network. If you wish to use it with devices on different networks, you will need to set up a TURN server using Coturn or use an existing TURN server. This is necessary because peer-to-peer (P2P) connections are often not possible with STUN servers due to NATs and firewalls, which can block direct connections between devices on different networks.
+
 ## Features
 
 - Create and join video chat rooms using a room ID.
@@ -32,6 +36,22 @@ Replace `YOUR-APP-ID-HERE` in `main.js` with your Agora app ID to connect to the
 
 ```javascript
 let APP_ID = "YOUR-APP-ID-HERE";
+```
+
+Additionally, configure the TURN servers in `main.js` as follows:
+```javascript
+const servers = {
+    iceServers:[
+        {
+            urls:['stun:stun.l.google.com:19302','stun:stun1.l.google.com:19302','stun:stun2.l.google.com:19302','stun:stun3.l.google.com:19302','stun:tun4.l.google.com:19302']
+        },
+        {
+            urls: 'turn-server-ip', //replace with your turn server IP address 
+            username: 'username', 
+            credential: 'password' 
+        }
+    ]
+}
 ```
 
 ## Usage
